@@ -1,0 +1,35 @@
+{% extends 'stories/base.html' %}
+{% load staticfiles %}
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+<!-- Page Header -->
+{% block header %}
+    <header class="masthead" style="background-color:black">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="post-heading">
+                        <h1>{{ story.title }}</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+
+{% block content %}
+    <!-- Post Content -->
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <h3>Total Ratings : {{ total }}</h3>
+                </div>
+            </div>
+        </div>
+    </article>
+{% endblock %}
+
+<a href="{% url 'stories:index' %}">Return Home</a>
+<a href="{% url 'stories:story' story.id %}">Return to Story</a>

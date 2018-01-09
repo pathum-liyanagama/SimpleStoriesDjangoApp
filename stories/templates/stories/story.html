@@ -1,0 +1,62 @@
+{% extends 'stories/base.html' %}
+{% load staticfiles %}
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+<!-- Page Header -->
+{% block header %}
+    <header class="masthead" style="background-color:black">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="post-heading">
+                        <h1>{{ story.title }}</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+
+{% block content %}
+    <!-- Post Content -->
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <p>{{ story.content }}</p>
+                    <hr>
+                    <!-- Add Rating -->
+                    <form action="{% url 'stories:add_rating' story.id %}" method="post">
+                        {% csrf_token %}
+                        <span style="font-size: 25px;margin-right: 25px;">Enter Your Rating...!</span>
+                        <span style="font-size: 20px;margin-right: 25px;">( Rate 1 to 5, 5 is the highest )</span>
+                        <div class="col-xs-2">
+                            <input class="form-control col-md-2" id="rating" type="number" name="rating" value="1"
+                                   onkeypress="return isInputNumberValid(event)">
+                        </div>
+                        <input class="btn btn-primary float-left" type="submit" value="Add Rating"
+                               style="margin-top: 10px;"/>
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </article>
+
+
+
+    <script>
+        function isInputNumberValid(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode
+            if (charCode > 31 && (charCode < 49 || charCode > 53))
+                return false;
+
+            return (document.getElementById("rating").value.length < 1)
+        }
+    </script>
+
+{% endblock %}

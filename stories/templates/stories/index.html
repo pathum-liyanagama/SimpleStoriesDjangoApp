@@ -1,0 +1,55 @@
+{% extends 'stories/base.html' %}
+{% load staticfiles %}
+
+<!-- Page Header -->
+{% block header %}
+    <header class="masthead" style="background-image: url({% static 'stories/img/home-bg.jpg' %})">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="site-heading">
+              <h1>Simple Stories</h1>
+              <span class="subheading">A Place To Enjoy By Reading And Writing</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+{% endblock %}
+
+<!-- Main Content -->
+{% block content %}
+    <div class="container">
+        {% if latest_stories %}
+        {% for story in latest_stories %}
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="post-preview">
+                        <a href="{% url 'stories:story' story.id %}">
+                            <h2 class="post-title">
+                                {{ story.title }}
+                            </h2>
+                            <h3 class="post-subtitle">
+                                {{ story.content|slice:"0:50" }}...
+                            </h3>
+                        </a>
+                        <p class="post-meta">Posted on
+                             {{ story.created_at|date:"M d, Y" }}</p>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+        {% endfor %}
+        {% else %}
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="post-preview">
+                    <h3>No stories are available.</h3>
+                </div>
+                <hr>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}
